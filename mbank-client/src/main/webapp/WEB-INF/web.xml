@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>mbank-client</display-name>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/page404.jsp</location>
+	</error-page>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>mbank-client</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>logged</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+		<!-- 
+	      <Connector protocol="HTTP/1.1" SSLEnabled="true" 
+	           port="${jboss.web.https.port}" address="${jboss.bind.address}"
+	           scheme="https" secure="true" clientAuth="false" 
+	           keystoreFile="${jboss.server.home.dir}/conf/server.keystore"
+	           keystorePass="changeit" sslProtocol = "TLS" />
+	           
+	       uncomment this part of server.xml file in deploy directory, input correct keystoreFile path 
+	     -->
+			
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Public</web-resource-name>
+			<url-pattern>/resources/*</url-pattern>
+		</web-resource-collection>
+		<!-- No auth-constraint means everybody has access! -->
+	</security-constraint>
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.jsp</form-login-page>
+			<form-error-page>/login.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<security-role>
+		<role-name>logged</role-name>
+	</security-role>
+</web-app>

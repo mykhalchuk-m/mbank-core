@@ -1,0 +1,5 @@
+<jboss-web>
+    <context-root>mbank-client</context-root>
+    
+    <security-domain>java:/jaas/mbank-client</security-domain>
+</jboss-web>
