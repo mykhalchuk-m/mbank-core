@@ -1,0 +1,21 @@
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="mbank" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/MbankDS</jta-data-source>
+		<class>com.epam.mbank.entities.Client</class>
+		<class>com.epam.mbank.entities.Account</class>
+		<class>com.epam.mbank.entities.Activity</class>
+		<class>com.epam.mbank.entities.Deposit</class>
+		<class>com.epam.mbank.entities.Property</class>
+		<validation-mode>AUTO</validation-mode>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+<!-- 			<property name="hibernate.show_sql" value="true" /> -->
+<!-- 			<property name="hibernate.format_sql" value="true" /> -->
+		</properties>
+	</persistence-unit>
+</persistence>

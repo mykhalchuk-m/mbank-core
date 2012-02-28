@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- All application-polices from this file should be moved to file with the same name in server's configuration 
+	folder -->
+
+<policy>
+
+	<!-- Custom test data base based login module -->
+	<application-policy name="mbank-client">
+		<authentication>
+			<login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
+				<module-option name="dsJndiName">java:/MbankDS</module-option>
+				<module-option name="principalsQuery">SELECT password FROM CLIENTS WHERE CLIENT_NAME=? and deleted=false
+				</module-option>
+				<module-option name="rolesQuery">SELECT role_name, 'Roles' FROM Roles where role_id=(select role_id from
+					user_roles where client_id=(select client_id from clients where client_name=? and deleted=false))
+				</module-option>
+			</login-module>
+		</authentication>
+	</application-policy>
+
+	<application-policy name="mbank-admin">
+		<authentication>
+			<login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
+				<module-option name="dsJndiName">java:/MbankDS</module-option>
+				<module-option name="principalsQuery">SELECT prop_value FROM PROPERTIES where prop_key='admin_password' and
+					(select prop_value FROM PROPERTIES where prop_key='admin_username')=?</module-option>
+				<module-option name="rolesQuery">SELECT role_name, 'Roles' FROM Roles where role_id=(SELECT role_id FROM
+					ADMIN_ROLES where admin_name=?)</module-option>
+			</login-module>
+		</authentication>
+	</application-policy>
+
+</policy>
