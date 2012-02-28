@@ -1,0 +1,5 @@
+<jboss-web>
+    <context-root>mbank-admin</context-root>
+    
+    <security-domain>java:/jaas/mbank-admin</security-domain>
+</jboss-web>
