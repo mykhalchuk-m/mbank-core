@@ -1,0 +1,1 @@
+Core system bank emulation system
